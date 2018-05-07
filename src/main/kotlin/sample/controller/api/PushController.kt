@@ -1,15 +1,30 @@
 package sample.controller.api
 
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import sample.form.PushForm
+import sample.form.RegisterForm
+import sample.service.PushService
+import sample.service.RegisterService
+import javax.validation.Valid
 
 
 @RestController
-@RequestMapping("/push")
-class PushController {
-    @PostMapping()
-    fun push() {
+@RequestMapping("api/push")
+class PushController(
+        private val pushService: PushService,
+        private val registerService: RegisterService) {
+    @PostMapping("notification")
+    fun notification(@RequestBody @Valid pushForm: PushForm) {
+        pushService.notification(pushForm)
+    }
 
+    @PostMapping("register")
+    fun register(@RequestBody @Valid registerForm: RegisterForm) {
+        registerService.register(registerForm)
+    }
+
+    @GetMapping("key")
+    fun key(): String {
+        return pushService.key()
     }
 }
