@@ -1,7 +1,7 @@
 package sample.form
 
 import com.fasterxml.jackson.annotation.JsonCreator
-import org.jetbrains.annotations.NotNull
+import javax.validation.constraints.NotNull
 
 data class RegisterForm @JsonCreator constructor(
         @NotNull val userId: String,
